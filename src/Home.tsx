@@ -28,10 +28,8 @@ const splTokenName = process.env.REACT_APP_SPL_TOKEN_TO_MINT_NAME
   : "TOKEN";
 
 const WalletContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+  position: relative;
+  left: 0;
 `;
 
 const WalletAmount = styled.div`
@@ -63,12 +61,6 @@ const WalletAmount = styled.div`
   gap: 10px;
 `;
 
-const Wallet = styled.ul`
-  flex: 0 0 auto;
-  margin: 0;
-  padding: 0;
-`;
-
 const ConnectButton = styled(WalletMultiButton)`
   border-radius: 18px !important;
   padding: 6px 16px;
@@ -76,18 +68,7 @@ const ConnectButton = styled(WalletMultiButton)`
   margin: 0 auto;
 `;
 
-const NFT = styled(Paper)`
-  min-width: 500px;
-  padding: 5px 20px 20px 20px;
-  flex: 1 1 auto;
-  background-color: var(--card-background-color) !important;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22) !important;
-`;
-
-const Des = styled(NFT)`
-  text-align: left;
-  padding-top: 0px;
-`;
+const NFT = styled(Paper)``;
 
 const Card = styled(Paper)`
   display: inline-block;
@@ -121,46 +102,6 @@ const MintButtonContainer = styled.div`
   @keyframes pulse {
     0% {
       box-shadow: 0 0 0 0 #ef8f6e;
-    }
-  }
-`;
-
-const Logo = styled.div`
-  flex: 0 0 auto;
-
-  img {
-    height: 60px;
-  }
-`;
-const Menu = styled.ul`
-  list-style: none;
-  display: inline-flex;
-  flex: 1 0 auto;
-
-  li {
-    margin: 0 12px;
-
-    a {
-      color: var(--main-text-color);
-      list-style-image: none;
-      list-style-position: outside;
-      list-style-type: none;
-      outline: none;
-      text-decoration: none;
-      text-size-adjust: 100%;
-      touch-action: manipulation;
-      transition: color 0.3s;
-      padding-bottom: 15px;
-
-      img {
-        max-height: 26px;
-      }
-    }
-
-    a:hover,
-    a:active {
-      color: rgb(131, 146, 161);
-      border-bottom: 4px solid var(--title-text-color);
     }
   }
 `;
@@ -257,20 +198,6 @@ const ShimmerTitle = styled.h1`
       text-shadow: 0 0 30px var(--title-text-color),
         0 0 10px var(--title-text-color);
     }
-  }
-`;
-
-const GoldTitle = styled.h2`
-  color: var(--title-text-color);
-`;
-
-const LogoAligner = styled.div`
-  display: flex;
-  align-items: center;
-
-  img {
-    max-height: 35px;
-    margin-right: 10px;
   }
 `;
 
@@ -587,54 +514,14 @@ const Home = (props: HomeProps) => {
     <main>
       <MainContainer>
         <WalletContainer>
-          <Logo>
-            <a
-              href="http://localhost:3000/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img alt="" src="logo.png" />
-            </a>
-          </Logo>
-          <Menu>
-            <li>
-              <a
-                href="http://localhost:3000/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Menu 1
-              </a>
-            </li>
-            <li>
-              <a
-                href="http://localhost:3000/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Menu 2
-              </a>
-            </li>
-            <li>
-              <a
-                href="http://localhost:3000/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Menu 3
-              </a>
-            </li>
-          </Menu>
-          <Wallet>
-            {wallet ? (
-              <WalletAmount>
-                {(balance || 0).toLocaleString()} SOL
-                <ConnectButton />
-              </WalletAmount>
-            ) : (
-              <ConnectButton>Connect Wallet</ConnectButton>
-            )}
-          </Wallet>
+          {wallet ? (
+            <WalletAmount>
+              {(balance || 0).toLocaleString()} SOL
+              <ConnectButton />
+            </WalletAmount>
+          ) : (
+            <ConnectButton>Connect Wallet</ConnectButton>
+          )}
         </WalletContainer>
         <ShimmerTitle>MINT IS LIVE !</ShimmerTitle>
         <br />
@@ -658,12 +545,7 @@ const Home = (props: HomeProps) => {
                 isActive &&
                 whitelistEnabled &&
                 whitelistTokenBalance > 0 &&
-                isBurnToken && (
-                  <h3>
-                    You own {whitelistTokenBalance} WL mint{" "}
-                    {whitelistTokenBalance > 1 ? "tokens" : "token"}.
-                  </h3>
-                )}
+                isBurnToken && <h3>You are whitelisted! Proceed to mint</h3>}
               {wallet &&
                 isActive &&
                 whitelistEnabled &&
@@ -762,22 +644,6 @@ const Home = (props: HomeProps) => {
                 </SolExplorerLink>
               )}
             </NFT>
-          </DesContainer>
-          <DesContainer>
-            <Des elevation={2}>
-              <LogoAligner>
-                <img src="logo.png" alt=""></img>
-                <GoldTitle>To Be Customized</GoldTitle>
-              </LogoAligner>
-              <p>Your description goes here.</p>
-            </Des>
-            <Des elevation={2}>
-              <LogoAligner>
-                <img src="logo.png" alt=""></img>
-                <GoldTitle>To Be Customized</GoldTitle>
-              </LogoAligner>
-              <p>Your description goes here.</p>
-            </Des>
           </DesContainer>
         </MintContainer>
       </MainContainer>
